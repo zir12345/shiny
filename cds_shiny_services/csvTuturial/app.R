@@ -26,7 +26,7 @@ out2 <- tabPanel(
 		plotOutput('species_plot'))
 out3 <- tabPanel(
 		title = 'Data',
-		dataTableOutput('species_table'))                 
+		DT::dataTableOutput('species_table'))                 
 main <- mainPanel(out1, tabsetPanel(out2, out3))
 tab1 <- tabPanel(
 		title = 'Species',
@@ -54,8 +54,8 @@ server <- function(input, output) {
 				ggplot(selected_animals(), aes(year)) +
 						geom_bar()
 			})
-	output[['species_table']] <- renderDataTable({
-				selected_animals()
+	output[['species_table']] <- DT::renderDataTable({
+				DT::datatable(selected_animals(), options = list(orderClasses = TRUE))
 			})
 }
 
